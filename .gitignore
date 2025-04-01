@@ -1,0 +1,5 @@
+local/*
+!local/git/
+local/git/*
+!local/git/mikybars.gitconfig
+!local/**/*.example
