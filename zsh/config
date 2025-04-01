@@ -1,0 +1,42 @@
+# vi: ft=zsh
+
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-${HOME}/.local/state}"
+
+export EDITOR='nvim'
+
+path=(
+  /opt/homebrew/bin
+  $path
+)
+
+# https://github.com/ajeetdsouza/zoxide?tab=readme-ov-file#installation
+eval "$(zoxide init --cmd j zsh)"
+
+# https://github.com/sdkman/homebrew-tap
+export SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
+[[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+
+# https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#configuration-file
+export RIPGREP_CONFIG_PATH=${XDG_CONFIG_HOME}/ripgrep/config
+
+# https://github.com/aykamko/tag?tab=readme-ov-file#installation
+if (( $+commands[tag] )); then
+  export TAG_SEARCH_PROG=rg
+  tag() { command tag "$@"; source ${TAG_ALIAS_FILE:-/tmp/tag_aliases} 2>/dev/null }
+  alias rg=tag
+fi
+
+# https://github.com/aykamko/tag?tab=readme-ov-file#configuration
+export TAG_SEARCH_PROG=rg
+export TAG_CMD_FMT_STRING="${EDITOR} -c \"call cursor({{.LineNumber}}, {{.ColumnNumber}})\" {{.Filename}}"
+
+alias rgni='rg --no-ignore'
+alias lg='lazygit'
+alias g..='cd $(git rev-parse --show-toplevel)'
+alias gp='git pull'
+alias gP='git push'
+alias gPf='git push --force-with-lease'
+alias gcane='git commit --amend --no-edit'

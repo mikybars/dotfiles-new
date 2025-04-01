@@ -1,0 +1,42 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ['~']
+
+- link:
+    ~/.zshenv: zsh/zshenv
+    ~/.config/zsh/.zshrc:
+      path: zsh/config
+      create: true
+    ~/.config/ripgrep/config:
+      path: ripgrep/config
+      create: true
+    ~/.config/lazygit/config.yml:
+      path: lazygit/config.yml
+      create: true
+    ~/.config/git/config:
+      path: git/config
+      create: true
+    ~/.config/git/ignore:
+      path: git/global-ignore
+      create: true
+    ~/.config/nvim: nvim
+
+- if:
+    cond: 'command -v brew'
+    unmet:
+      - shell:
+          - description: 🍻 Installing Homebrew 🔐 sudo
+            # https://github.com/orgs/Homebrew/discussions/4311#discussioncomment-5239736
+            command: >
+              sudo echo &&
+              NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+            stdout: true
+            quiet: true
+
+- shell:
+    - description: 📦 Installing brew packages from Brewfile
+      command: /opt/homebrew/bin/brew bundle install --verbose --file Brewfile
+      stdout: true
+      quiet: true
