@@ -11,6 +11,7 @@ brew "git-delta"                           # https://github.com/dandavison/delta
 brew "git-open"                            # https://github.com/jeffreyiacono/git-open
 brew "gnu-sed"                             # https://www.gnu.org/software/sed/
 brew "gpg"
+brew "gum"                                 # https://github.com/charmbracelet/gum
 brew "lazygit"                             # https://github.com/jesseduffield/lazygit
 brew "neovim"                              # https://neovim.io/
 brew "node"

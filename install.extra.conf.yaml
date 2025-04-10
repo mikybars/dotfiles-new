@@ -25,11 +25,15 @@
     then:
       - shell:
           - description: Setting up GitHub connection
-            command: . github/connect.sh
+            command: >
+              gum confirm --timeout=3s "Set up GitHub connection?" &&
+              . github/connect.sh || true
 
 - if:
     not: [ 'Java is installed', 'grep installed <(sdk list java)' ]
     then:
       - shell:
           - description: ☕ Checking Java installation
-            command: sdk install java
+            command: >
+              gum confirm --timeout=3s "Install latest version of Java?" &&
+                sdk install java || true
