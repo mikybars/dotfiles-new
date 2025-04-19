@@ -1,0 +1,9 @@
+# vi: ft=gitconfig
+#
+# Remove the .example extension to extend git config with settings below
+
+[includeIf "gitdir:~/dev/mikybars/"]
+	path = mikybars.gitconfig
+
+[includeIf "gitdir:~/dev/work/"]
+	path = work.gitconfig
